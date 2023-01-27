@@ -25,24 +25,24 @@
 
 [中文简介](https://github.com/CovenantSQL/CovenantSQL/blob/develop/README-zh.md)
 
-SpaceXpanseSQL (SpeXQL) or just XQL /former CovenantSQL(CQL)/ is a **Byzantine Fault Tolerant** relational database built on SQLite:
+**SpaceXpanseSQL (SpeXQL)** or just XQL for short /derived from CovenantSQL/ is a **Byzantine Fault Tolerant** relational database built on SQLite:
 
 - **ServerLess**: Free, High Availabile, Auto Sync Database Service for Serverless App
 - **SQL**: Most SQL-92 support.
 - **Decentralize**: Running on Open Internet without Central Coordination.
 - **Privacy**: Access with Granted Permission and Encryption Pass.
-- **Immutable**: Query History in CQL is Immutable and Trackable.
+- **Immutable**: Query History in XQL is Immutable and Trackable.
 - **Permission**: Column Level ACL and SQL Pattern Whitelist.
 
-## What is CQL?
+## What is XQL?
 
 - Open source alternative of Amazon QLDB
 - Low cost DBaaS
-- Just like filecoin + IPFS is the decentralized file system, CQL is the decentralized database
+- Just like filecoin + IPFS is the decentralized file system, XQL is the decentralized database
 
 ## Quick Start
 
-CQL client supports:
+XQL client supports:
 
 - macOS X 10.9+
 - Linux 2.6.23+ (x86, x86_64, armeabi-v7a, arm64-v8a)
@@ -87,7 +87,7 @@ CovenantSQL Testnet is already released, [have a try](https://developers.covenan
 </details>
 
 
-## How CQL works
+## How XQL works
 
 ### 3 Layers Arch
 
@@ -109,12 +109,12 @@ CovenantSQL Testnet is already released, [have a try](https://developers.covenan
 
 ### Consensus Algorithm
 
-CQL supports 2 kinds of consensus algorithm:
+XQL supports 2 kinds of consensus algorithm:
 
-1. DPoS (Delegated Proof-of-Stake) is applied in `Eventually consistency mode` database and also `Layer 1 (Global Consensus Layer)` in BlockProducer. CQL miners pack all SQL queries and its signatures by the client into blocks thus form a blockchain. We named the algorithm [`Xenomint`](https://github.com/CovenantSQL/CovenantSQL/tree/develop/xenomint). 
-2. BFT-Raft (Byzantine Fault-Toleranted Raft)<sup>[bft-raft](#bft-raft)</sup> is applied in `Strong consistency mode` database. We named our implementation [`Kayak`](https://github.com/CovenantSQL/CovenantSQL/tree/develop/kayak).  The CQL miner leader does a `Two-Phase Commit` with `Kayak` to support `Transaction`.<sup>[transaction](#transaction)</sup>
+1. DPoS (Delegated Proof-of-Stake) is applied in `Eventually consistency mode` database and also `Layer 1 (Global Consensus Layer)` in BlockProducer. XQL miners pack all SQL queries and its signatures by the client into blocks thus form a blockchain. We named the algorithm [`Xenomint`](https://github.com/CovenantSQL/CovenantSQL/tree/develop/xenomint). 
+2. BFT-Raft (Byzantine Fault-Toleranted Raft)<sup>[bft-raft](#bft-raft)</sup> is applied in `Strong consistency mode` database. We named our implementation [`Kayak`](https://github.com/CovenantSQL/CovenantSQL/tree/develop/kayak).  The XQL miner leader does a `Two-Phase Commit` with `Kayak` to support `Transaction`.<sup>[transaction](#transaction)</sup>
 
-CQL database consistency mode and node count can be selected in database creation with command  `cql create '{"UseEventualConsistency": true, "Node": 3}'`
+XQL database consistency mode and node count can be selected in database creation with command  `cql create '{"UseEventualConsistency": true, "Node": 3}'`
 
 ## Comparison
 
@@ -136,11 +136,11 @@ CQL database consistency mode and node count can be selected in database creatio
 
 #### FootNotes
 
-- <a name="bft-raft">BFT-Raft</a>: A CQL leader offline needs CQL Block Producer to decide whether to wait for leader online for data integrity or promote a follower node for availability. This part is still under construction and any advice is welcome.  
+- <a name="bft-raft">BFT-Raft</a>: A XQL leader offline needs XQL Block Producer to decide whether to wait for leader online for data integrity or promote a follower node for availability. This part is still under construction and any advice is welcome.  
 
-- <a name="transaction">Transaction</a>: Talking about `ACID`, CQL has full "Consistency, Isolation, Durability" and a limited `Atomicity` support. That is even under strong consistency mode, CQL transaction is only supported on the leader node. If you want to do "read `v`, `v++`, write `v` back" parallelly and atomically, then the only way is "read `v` from the leader, `v++`, write `v` back to leader"
+- <a name="transaction">Transaction</a>: Talking about `ACID`, XQL has full "Consistency, Isolation, Durability" and a limited `Atomicity` support. That is even under strong consistency mode, XQL transaction is only supported on the leader node. If you want to do "read `v`, `v++`, write `v` back" parallelly and atomically, then the only way is "read `v` from the leader, `v++`, write `v` back to leader"
 
-- <a name="fuse">FUSE</a>: CQL has a [simple FUSE](https://github.com/CovenantSQL/CovenantSQL/tree/develop/cmd/cql-fuse) support adopted from CockroachDB. The performance is not very ideal and still has some issues. But it can pass fio test like:
+- <a name="fuse">FUSE</a>: XQL has a [simple FUSE](https://github.com/CovenantSQL/CovenantSQL/tree/develop/cmd/cql-fuse) support adopted from CockroachDB. The performance is not very ideal and still has some issues. But it can pass fio test like:
 
   ```bash
   fio --debug=io --loops=1 --size=8m --filename=../mnt/fiotest.tmp --stonewall --direct=1 --name=Seqread --bs=128k --rw=read --name=Seqwrite --bs=128k --rw=write --name=4krandread --bs=4k --rw=randread --name=4krandwrite --bs=4k --rw=randwrite
@@ -206,34 +206,34 @@ As seen above, the concurrency pressure on the database increased gradually in t
 
 #### Privacy data
 
-If you are a developper of password management tools just like [1Password](https://1password.com/) or [LastPass](https://www.lastpass.com/). You can use CQL as the database to take benefits:
+If you are a developper of password management tools just like [1Password](https://1password.com/) or [LastPass](https://www.lastpass.com/). You can use XQL as the database to take benefits:
 
 1. Serverless: no need to deploy a server to store your user's password for sync which is the hot potato.
-2. Security: CQL handles all the encryption work. Decentralized data storage gives more confidence to your users.
-3. Regulation: CQL naturally comply with [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation).
+2. Security: XQL handles all the encryption work. Decentralized data storage gives more confidence to your users.
+3. Regulation: XQL naturally comply with [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation).
 
 #### IoT storage
 
-CQL miners are deployed globally, IoT node can write to nearest CQL miner directly.
+XQL miners are deployed globally, IoT node can write to nearest XQL miner directly.
 
-1. Cheaper: Without passing all the traffic through a gateway, you can save a large bandwidth fee. And, CQL is a shared economic database which makes storage cheaper.
-2. Faster: CQL consensus protocol is designed for Internet where network latency is unavoidable.
+1. Cheaper: Without passing all the traffic through a gateway, you can save a large bandwidth fee. And, XQL is a shared economic database which makes storage cheaper.
+2. Faster: XQL consensus protocol is designed for Internet where network latency is unavoidable.
 
 #### Open data service
 
 For example, you are the most detailed Bitcoin OHLC data maintainer. You can directly expose an online SQL interface to your customers to meet a wide range of query needs.
 
-1. CQL can limit specific SQL query statements to meet the needs while also balancing data security;
-2. CQL can record SQL query records on the blockchain, which is very convenient for customers to check their bills for long-tail customers and billing, like [this](https://explorer.dbhub.org/dbs/7a51191ae06afa22595b3904dc558d41057a279393b22650a95a3fc610e1e2df/requests/f466f7bf89d4dd1ece7849ef3cbe5c619c2e6e793c65b31966dbe4c7db0bb072)
+1. XQL can limit specific SQL query statements to meet the needs while also balancing data security;
+2. XQL can record SQL query records on the blockchain, which is very convenient for customers to check their bills for long-tail customers and billing, like [this](https://explorer.dbhub.org/dbs/7a51191ae06afa22595b3904dc558d41057a279393b22650a95a3fc610e1e2df/requests/f466f7bf89d4dd1ece7849ef3cbe5c619c2e6e793c65b31966dbe4c7db0bb072)
 3. For customers with high performance requirements, Slave nodes can be deployed at the customer to meet the needs of customers with low latency queries while enabling almost real-time data updates.
 
 #### Secure storage
 
-Thanks to the CQL data history is immutable, CQL can be used as a storage for sensitive operational logs to prevent hacking and erasure access logs.
+Thanks to the XQL data history is immutable, XQL can be used as a storage for sensitive operational logs to prevent hacking and erasure access logs.
 
 ### ĐApp
 
-Storing data on Bitcoin or Ethereum is quite expensive ($4305 / MB on Ethereum 2018-05-15). Programming is very complicated due to the lack of support for structured data storage. CQL gives you a low-cost structured SQL database and also provides more room for ĐApp to exchange data with real-world.
+Storing data on Bitcoin or Ethereum is quite expensive ($4305 / MB on Ethereum 2018-05-15). Programming is very complicated due to the lack of support for structured data storage. XQL gives you a low-cost structured SQL database and also provides more room for ĐApp to exchange data with real-world.
 
 </p>
 </details>
