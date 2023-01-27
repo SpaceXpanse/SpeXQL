@@ -25,7 +25,7 @@
 
 [中文简介](https://github.com/CovenantSQL/CovenantSQL/blob/develop/README-zh.md)
 
-**SpaceXpanseSQL (SpeXQL)** or just XQL for short /derived from CovenantSQL/ is a **Byzantine Fault Tolerant** relational database built on SQLite:
+**SpaceXpanseSQL (SpeXQL)** /derived from CovenantSQL/ or just **XQL** for short is a **Byzantine Fault Tolerant** relational database built on SQLite:
 
 - **ServerLess**: Free, High Availabile, Auto Sync Database Service for Serverless App
 - **SQL**: Most SQL-92 support.
