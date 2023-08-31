@@ -1,3 +1,5 @@
+# SpeXQL /WIP/
+## A decentralized, trusted, high performance, SQL database with blockchain features
 <!-- 
 <p align="center">
     <img src="logo/covenantsql_horizontal.png"
