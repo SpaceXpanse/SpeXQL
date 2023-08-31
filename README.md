@@ -1,3 +1,4 @@
+<!-- 
 <p align="center">
     <img src="logo/covenantsql_horizontal.png"
         width="760">
@@ -24,6 +25,7 @@
 </p>
 
 [中文简介](https://github.com/CovenantSQL/CovenantSQL/blob/develop/README-zh.md)
+-->
 
 **SpaceXpanseSQL (SpeXQL)** /derived from CovenantSQL/ or just **XQL** for short is a **Byzantine Fault Tolerant** relational database built on SQLite:
 
